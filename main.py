@@ -3,8 +3,6 @@ import os
 import dotenv
 import wyvern
 
-from keep_alive import keep_alive
-
 dotenv.load_dotenv()
 
 intents = (
@@ -28,7 +26,6 @@ client.load_hooks("extensions.base_cmds")
 async def _setups(client: wyvern.CommandsClient) -> None:
     client.hooks["base"](client)
 
-keep_alive()
 client.run(
     activity=wyvern.Activity(name="hello, world!",
                              type=wyvern.ActivityType.LISTENING),
