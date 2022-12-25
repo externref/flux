@@ -20,14 +20,21 @@ client = wyvern.CommandsClient(
     allowed_mentions=wyvern.AllowedMentions(users=True),
 )
 client.load_hooks("extensions.base_cmds")
+client.load_hooks("extensions.tasks")
 
 
 @client.with_listener(wyvern.Event.STARTING)
-async def _setups(client: wyvern.CommandsClient) -> None:
+async def setups(client: wyvern.CommandsClient) -> None:
     client.hooks["base"](client)
+    client.hooks["tasks"](client)
+
+
+@client.with_listener(wyvern.Event.STARTED)
+async def ready(client: wyvern.CommandsClient) -> None:
+    print("Bot is online!")
+
 
 client.run(
-    activity=wyvern.Activity(name="hello, world!",
-                             type=wyvern.ActivityType.LISTENING),
+    activity=wyvern.Activity(name="hello, world!", type=wyvern.ActivityType.LISTENING),
     status=wyvern.Status.IDLE,
 )
